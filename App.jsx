@@ -1,6 +1,6 @@
-import { ErrorBoundary } from "./app/ErrorBoundary.jsx";
-import { SmartManager } from "./app/Shell.jsx";
-import { AppLock, GlobalStyles } from "./components/ui.jsx";
+import { ErrorBoundary } from "./ErrorBoundary.jsx";
+import { SmartManager } from "./Shell.jsx";
+import { AppLock, GlobalStyles } from "./ui.jsx";
 
 export default function App() {
   return (
