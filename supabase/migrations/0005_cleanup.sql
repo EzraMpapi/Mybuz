@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS public.carrier, public.signing_key, public.gate_device, public.station, public.boarding_scan, public.disruption, public.compensation, public.audit_log, public.seat_occupancy, public.cabin_class CASCADE;
