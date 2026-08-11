@@ -4,7 +4,7 @@ import {
   Users, X
 } from "lucide-react";
 import * as XLSX from "xlsx";
-import { BrandMark } from "./components/BrandMark.jsx";
+import { BrandMark } from "./BrandMark.jsx";
 import { COMPANY_CATEGORIES } from "./data/core.jsx";
 import { confirmAction } from "./lib/buses.jsx";
 import { b64ToBuf, hashPin } from "./lib/crypto.jsx";
