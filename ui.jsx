@@ -5,9 +5,9 @@ import {
 } from "lucide-react";
 import * as XLSX from "xlsx";
 import { BrandMark } from "./BrandMark.jsx";
-import { COMPANY_CATEGORIES } from "./data/core.jsx";
-import { confirmAction } from "./lib/buses.jsx";
-import { b64ToBuf, hashPin } from "./lib/crypto.jsx";
+import { COMPANY_CATEGORIES } from "./core.jsx";
+import { confirmAction } from "./buses.jsx";
+import { b64ToBuf, hashPin } from "./crypto.jsx";
 
 export function FormField({ label, required, children }) {
   return (
