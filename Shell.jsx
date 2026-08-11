@@ -370,25 +370,15 @@ export function SmartManager() {
   });
 
 
-  // ── Dark mode ────────────────────────────────────────────────────────────
-  const [darkMode, setDarkMode] = React.useState(() => {
-    try { return localStorage.getItem("bs_dark") === "1"; } catch(_e){ return false; }
-  });
-  React.useEffect(() => {
-    const root = document.documentElement;
-    if (darkMode) { root.classList.add("dark"); localStorage.setItem("bs_dark","1"); }
-    else { root.classList.remove("dark"); localStorage.setItem("bs_dark","0"); }
-  }, [darkMode]);
-
   // ── Smart Alert Engine — cross-module intelligence ─────────────────────
   // Each module passes its local table data here; the engine returns ranked alerts
-  const [bankLoansForAlerts,  setBankLoansForAlerts]  = React.useState([]);
-  const [phmStockForAlerts,   setPhmStockForAlerts]   = React.useState([]);
-  const [vehiclesForAlerts,   setVehiclesForAlerts]   = React.useState([]);
-  const [schFeesForAlerts,    setSchFeesForAlerts]    = React.useState([]);
-  const [rstOrdersForAlerts,  setRstOrdersForAlerts]  = React.useState([]);
-  const [mfiLoansForAlerts,   setMfiLoansForAlerts]   = React.useState([]);
-  const [htlBookingsForAlerts,setHtlBookingsForAlerts] = React.useState([]);
+  const [bankLoansForAlerts,  setBankLoansForAlerts]  = useState([]);
+  const [phmStockForAlerts,   setPhmStockForAlerts]   = useState([]);
+  const [vehiclesForAlerts,   setVehiclesForAlerts]   = useState([]);
+  const [schFeesForAlerts,    setSchFeesForAlerts]    = useState([]);
+  const [rstOrdersForAlerts,  setRstOrdersForAlerts]  = useState([]);
+  const [mfiLoansForAlerts,   setMfiLoansForAlerts]   = useState([]);
+  const [htlBookingsForAlerts,setHtlBookingsForAlerts] = useState([]);
 
   const smartAlerts = useSmartAlerts({
     invoices:    invoices.rows,
@@ -555,14 +545,6 @@ export function SmartManager() {
             "radial-gradient(900px circle at 100% 0%, rgba(17,24,39,0.05), transparent 50%)",
         }}
       />
-      {/* Global styles moved to <GlobalStyles /> in the true app root (see
-          the end of this file) — this exact block used to live only here,
-          inside the authenticated shell, meaning every button style,
-          @keyframes animation, and the Google Fonts import was silently
-          unavailable on Login, Signup, and the loading screen, since none
-          of those render this deep in the tree. See the handover doc for
-          the full explanation of this bug and its fix. */}
-
       {/* Brand accent — thin gradient line across the very top */}
       <div
         className="fixed top-0 left-0 right-0 h-[3px] z-[70]"
@@ -749,13 +731,13 @@ export function SmartManager() {
             )}
             {/* ── Dark mode toggle ── */}
             <button
-              onClick={()=>setDarkMode(d=>!d)}
+              onClick={toggleDarkMode}
               className="w-8 h-8 flex items-center justify-center rounded-xl border border-slate-200 text-slate-500 hover:border-slate-300 hover:text-[#111827] transition-all"
               title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
               {darkMode ? <Sun size={15}/> : <Moon size={15}/>}
             </button>
-                        <NotificationCenter inventory={inventory} invoices={invoices} expenses={expenses} leaveRequests={leaveRequests} workOrders={workOrders} subscriptions={subscriptions} onNavigate={go} />
+            <NotificationCenter inventory={inventory} invoices={invoices} expenses={expenses} leaveRequests={leaveRequests} workOrders={workOrders} subscriptions={subscriptions} onNavigate={go} />
             <ProfileMenu currentUser={currentUser} session={session} onSignOut={handleSignOut} />
           </div>
         </header>
@@ -771,7 +753,7 @@ export function SmartManager() {
             and "show unpaid customers" are answered from real records,
             in English or Kiswahili, both of which the model genuinely
             understands. This button adds reachability, not a second AI. */}
-                {/* Mobile bottom navigation — the pattern every mobile-first app uses:
+        {/* Mobile bottom navigation — the pattern every mobile-first app uses:
             5 pinned tabs at the bottom of the screen, the most-used modules
             one thumb-tap away. Only renders on small screens where the
             sidebar is hidden. RBAC is automatic: tabs are built from the
