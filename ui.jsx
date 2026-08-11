@@ -4,10 +4,10 @@ import {
   Users, X
 } from "lucide-react";
 import * as XLSX from "xlsx";
-import { BrandMark } from "../components/BrandMark.jsx";
-import { COMPANY_CATEGORIES } from "../data/core.jsx";
-import { confirmAction } from "../lib/buses.jsx";
-import { b64ToBuf, hashPin } from "../lib/crypto.jsx";
+import { BrandMark } from "./components/BrandMark.jsx";
+import { COMPANY_CATEGORIES } from "./data/core.jsx";
+import { confirmAction } from "./lib/buses.jsx";
+import { b64ToBuf, hashPin } from "./lib/crypto.jsx";
 
 export function FormField({ label, required, children }) {
   return (
@@ -347,21 +347,14 @@ export function GlobalStyles() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
 
-        /* Smart Manager design tokens — adapted from the brand's design
-           system into CSS custom properties so they're usable directly in
-           Tailwind's arbitrary-value syntax (e.g. shadow-[var(--shadow-md)])
-           without needing a JS import that a single-file artifact can't
-           resolve. Kijani Kuu (#16A34A) is the brand's primary green,
-           carried through from the Smart Manager logo mark and matched
-           exactly to the reference design system's color tokens. */
         :root {
-          --color-primary: #16A34A;        /* Kijani Kuu */
-          --color-primary-light: #22C55E;  /* Kijani Nyororo */
+          --color-primary: #16A34A;
+          --color-primary-light: #22C55E;
           --color-primary-dark: #15803D;
-          --color-primary-pale: #DCFCE7;   /* Kijani Mwanga */
-          --color-secondary: #111827;      /* Maandishi */
-          --color-danger-pale: #FEE2E2;    /* Nyekundu Mwanga */
-          --color-surface-alt: #F8FAFC;    /* Background, per Design System 2.0 */
+          --color-primary-pale: #DCFCE7;
+          --color-secondary: #111827;
+          --color-danger-pale: #FEE2E2;
+          --color-surface-alt: #F8FAFC;
           --color-success: #16A34A;
           --color-warning: #F59E0B;
           --color-danger: #EF4444;
@@ -375,14 +368,6 @@ export function GlobalStyles() {
 
         h1, h2, h3 { font-family: 'Poppins', system-ui, sans-serif; font-weight: 600; }
 
-        /* Namba (numbers): Inter Medium per the design system — every
-           monetary figure, ID, and count in this app uses Tailwind's
-           font-mono utility for column alignment, which by default maps
-           to an actual monospace stack. Overriding the class itself here
-           (rather than touching all ~280 call sites individually) makes
-           every one of them Inter Medium in one place, and keeps digit
-           columns aligned via OpenType tabular-figure features instead of
-           relying on a monospace typeface to do it. */
         .font-mono {
           font-family: 'Inter', system-ui, sans-serif !important;
           font-weight: 500;
@@ -399,8 +384,6 @@ export function GlobalStyles() {
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(6px) } to { opacity: 1; transform: translateY(0) } }
         @keyframes loadingBar { 0% { transform: translateX(-100%) } 100% { transform: translateX(250%) } }
 
-        /* Shimmer skeleton — a moving gradient reads as "actively loading"
-           more clearly than a uniform pulse. */
         @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
         .skeleton-shimmer {
           background: linear-gradient(90deg, #F1F3F5 25%, #E9ECEF 50%, #F1F3F5 75%);
@@ -438,18 +421,6 @@ export function GlobalStyles() {
         .btn-secondary:hover:not(:disabled) { background: #DCFCE7; }
         .btn-secondary:active:not(:disabled) { transform: translateY(0.5px); }
 
-        /* ── Premium UI token layer ──────────────────────────────────────
-           One CSS block that touches the entire product:
-           ① Table rows: subtler hover, smoother feel
-           ② Form inputs: consistent placeholder color (not already in Tailwind)
-           ③ Select: removes the awkward default arrow on Webkit
-           ④ Card headers: consistent weight and letter-spacing for every
-              section title that uses a plain <h3>
-           ⑤ Sidebar active item: a solid green left-border accent so the
-              active nav item reads clearly without needing a background fill
-           ⑥ Scrollbar: thin & brand-colored on Webkit (Chrome/Safari/Edge),
-              already transparent on Firefox via the existing rule
-           ─────────────────────────────────────────────────────────────── */
         tr:hover td { background-color: rgba(248,250,252,.9); }
         ::placeholder { color: #9CA3AF; opacity: 1; }
         select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px !important; }
@@ -463,13 +434,6 @@ export function GlobalStyles() {
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
         input[type=number] { -moz-appearance: textfield; }
 
-        /* Kitufe cha Icon — a circular, solid-green icon-only button for a
-           primary action with no room (or need) for a text label. Not yet
-           applied anywhere specific: this app's existing icon-only buttons
-           are predominantly navigation/utility (menu toggle, notification
-           bell), which should stay neutral by convention — a bare icon
-           button only belongs in this style when the action itself is a
-           primary create/confirm, the same rule that governs .btn-primary. */
         .btn-icon-primary {
           background: linear-gradient(135deg, #16A34A 0%, #15803D 100%);
           color: #FFFFFF;
@@ -500,19 +464,6 @@ export function GlobalStyles() {
         ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
 
-        /* Real Dark Mode — deliberately scoped to the App Shell only
-           (sidebar and topbar), not the whole application. A blanket
-           rewrite across 23,000+ lines of hardcoded Tailwind colors
-           would be a real, large undertaking with real risk of a
-           half-correct result — some screens right, others silently
-           broken — which is worse than not having it at all. This is
-           the honest alternative: a real, verified dark surface for the
-           two elements a person sees on every single screen regardless
-           of which module they're in, built with ordinary CSS
-           specificity (two classes always beat one) rather than
-           !important overrides, so it can't silently fight with
-           anything else. Module content underneath stays light-themed
-           — Settings says so directly, not implied.  */
         .dark-shell.bg-white { background-color: #0F172A; }
         .dark-shell .bg-white { background-color: #1E293B; }
         .dark-shell .bg-slate-100 { background-color: #334155; }
@@ -528,12 +479,6 @@ export function GlobalStyles() {
         .dark-shell .brand-wordmark { color: #F1F5F9; }
         .brand-wordmark { color: #111827; }
 
-        /* Design System 2.0 motion layer — pure, scoped CSS, no per-
-           component rewrites across 22 modules that could regress them.
-           Honest note on "ripple": a true Material ripple needs JS
-           tracking the tap point; the browser-native equivalent below
-           (a 100ms press-down scale on every real button) delivers the
-           same felt feedback without a library. Reduced-motion honored. */
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
         @keyframes shimmer { from { background-position: -400px 0; } to { background-position: 400px 0; } }
         .module-fade { animation: fadeInUp .25s ease-out; }
@@ -546,21 +491,9 @@ export function GlobalStyles() {
           button:active:not(:disabled) { transform: none; }
         }
 
-        /* WCAG 2.2 AA — visible keyboard focus (SC 2.4.7 / 2.4.11).
-           :focus-visible fires for keyboard navigation only, so mouse
-           users see no ring while a person tabbing through gets a real,
-           high-contrast indicator on every interactive element — the
-           brand green at 2px with offset, never clipped by the element
-           itself. This is the single highest-leverage accessibility rule
-           a stylesheet can carry: one selector, every screen, every
-           module, including everything built in all future sections. */
         :focus-visible { outline: 2px solid #16A34A; outline-offset: 2px; }
         .dark-shell :focus-visible { outline-color: #4ADE80; }
 
-        /* Pro-grade card response — on hover-capable devices only (no
-           sticky hover states on touch), cards with the standard shadow
-           lift subtly toward the cursor. One rule, every card, all 22
-           modules; transform respects reduced-motion below. */
         @media (hover: hover) {
           .rounded-xl.shadow-sm { transition: box-shadow .2s ease, transform .2s ease; }
           .rounded-xl.shadow-sm:hover { box-shadow: 0 6px 20px rgba(15, 42, 74, 0.09); transform: translateY(-1px); }
@@ -569,10 +502,6 @@ export function GlobalStyles() {
           .rounded-xl.shadow-sm:hover { transform: none; }
         }
 
-        /* Accessibility — WCAG 2.2 AA controls (section: Settings >
-           Appearance). Text size scales the root so every derived size
-           in all 22 modules follows (SC 1.4.4); high-contrast darkens
-           text and strengthens borders app-wide with one class. */
         .text-size-large { font-size: 112.5%; }
         .text-size-xl { font-size: 125%; }
         .high-contrast { color: #000; }
@@ -594,9 +523,6 @@ export function AppLock({ children }) {
     if (storedHash) { setHasPin(true); setLocked(true); }
   }, []);
 
-  // Real re-lock on backgrounding — the actual point of an app lock: if
-  // someone hands their phone to a friend after switching away and back,
-  // the app should ask again, not stay open indefinitely.
   useEffect(() => {
     if (!hasPin) return;
     function handleVisibility() {
@@ -620,11 +546,6 @@ export function AppLock({ children }) {
     }
   }
 
-  // Biometric unlock — the same real WebAuthn machinery attendance uses:
-  // a platform authenticator with userVerification "required" raises the
-  // OS's actual fingerprint or Face ID dialog. Offered only when a
-  // credential was genuinely enrolled on this device; PIN remains the
-  // fallback, matching how phones themselves treat biometrics.
   const bioCred = typeof window !== "undefined" ? window.localStorage.getItem("bs_bio_applock") : null;
   async function unlockBiometric() {
     try {
