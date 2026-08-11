@@ -3,27 +3,27 @@ import {
   AlertCircle, Building2, Calendar, ChevronDown, Lock, MapPin, Moon, Search, Settings,
   Sparkles, Sun, X
 } from "lucide-react";
-import { ActivityStream, mapPosTransactionRow } from "../components/ActivityStream.jsx";
-import { BrandMark } from "../components/BrandMark.jsx";
-import { DailyBriefing } from "../components/SendReceiptPanel.jsx";
+import { ActivityStream, mapPosTransactionRow } from "./components/ActivityStream.jsx";
+import { BrandMark } from "./components/BrandMark.jsx";
+import { DailyBriefing } from "./components/SendReceiptPanel.jsx";
 import {
   ConfirmDialog,
   PostCreateDispatch,
   SendReceiptPanel,
   Toasts,
-} from "../components/feedback.jsx";
-import { MenuIcon } from "../components/ui.jsx";
-import { invoicesSeed, quotationsSeed } from "../data/assets.jsx";
-import { MODULES, ROLES, seedLeads, useSmartAlerts } from "../data/core.jsx";
-import { filesSeed } from "../data/documents.jsx";
-import { expensesSeed } from "../data/finance.jsx";
-import { employeesSeed, leaveRequestsSeed } from "../data/hr.jsx";
-import { inventorySeed, suppliersSeed } from "../data/inventory.jsx";
-import { workOrdersSeed } from "../data/manufacturing.jsx";
-import { posTransactionsSeed } from "../data/pos.jsx";
-import { subscriptionsSeed } from "../data/sales.jsx";
-import { CommandPalette, NotificationCenter, ProfileMenu } from "../lib/alerts.jsx";
-import { TODAY, setActiveTaxRate } from "../lib/format.jsx";
+} from "./components/feedback.jsx";
+import { MenuIcon } from "./components/ui.jsx";
+import { invoicesSeed, quotationsSeed } from "./data/assets.jsx";
+import { MODULES, ROLES, seedLeads, useSmartAlerts } from "./data/core.jsx";
+import { filesSeed } from "./data/documents.jsx";
+import { expensesSeed } from "./data/finance.jsx";
+import { employeesSeed, leaveRequestsSeed } from "./data/hr.jsx";
+import { inventorySeed, suppliersSeed } from "./data/inventory.jsx";
+import { workOrdersSeed } from "./data/manufacturing.jsx";
+import { posTransactionsSeed } from "./data/pos.jsx";
+import { subscriptionsSeed } from "./data/sales.jsx";
+import { CommandPalette, NotificationCenter, ProfileMenu } from "./lib/alerts.jsx";
+import { TODAY, setActiveTaxRate } from "./lib/format.jsx";
 import {
   mapEmployeeRow,
   mapExpenseRow,
@@ -37,45 +37,45 @@ import {
   mapSupplierRow,
   mapWorkOrderRow,
   useCompanyTable,
-} from "../lib/mappers.jsx";
-import { mapFileRow, notify } from "../lib/notify.jsx";
-import { DEMO_OVERRIDE, IS_CONFIGURED, authGetUser, authSignOut, sb, setDemoOverride } from "../lib/supabase.jsx";
-import { AIAssistant } from "../modules/AIAssistant.jsx";
-import { Analytics, MicrofinanceModule } from "../modules/Analytics.jsx";
-import { LoginPage, OAuthCompanySetup, SignupPage } from "../modules/Auth.jsx";
-import { BankingMFIModule } from "../modules/Banking.jsx";
-import { CRM } from "../modules/CRM.jsx";
-import { CollaborationHub } from "../modules/Collaboration.jsx";
-import { CommunityGroupsModule } from "../modules/Community.jsx";
-import { CustomerPortal } from "../modules/CustomerPortal.jsx";
-import { Dashboard } from "../modules/Dashboard.jsx";
-import { Documents } from "../modules/Documents.jsx";
-import { ECommerce } from "../modules/ECommerce.jsx";
-import { EmployeePortal } from "../modules/EmployeePortal.jsx";
-import { Finance } from "../modules/Finance.jsx";
-import { FleetManagementModule } from "../modules/Fleet.jsx";
-import { HR } from "../modules/HR.jsx";
-import { HealthcareClinicModule } from "../modules/Healthcare.jsx";
-import { HotelManagementModule } from "../modules/Hotel.jsx";
-import { Integrations } from "../modules/Integrations.jsx";
-import { Inventory } from "../modules/Inventory.jsx";
-import { Manufacturing } from "../modules/Manufacturing.jsx";
-import { Marketing } from "../modules/Marketing.jsx";
-import { Notifications } from "../modules/Notifications.jsx";
-import { POS } from "../modules/POS.jsx";
-import { PharmacyManagementModule } from "../modules/Pharmacy.jsx";
-import { Procurement } from "../modules/Procurement.jsx";
-import { Projects } from "../modules/Projects.jsx";
-import { Reports, scheduledReportsSeed } from "../modules/Reports.jsx";
-import { RestaurantModule } from "../modules/Restaurant.jsx";
-import { SupplyChain } from "../modules/SCM.jsx";
-import { Sales } from "../modules/Sales.jsx";
-import { SchoolManagementModule } from "../modules/School.jsx";
-import { SettingsPage } from "../modules/Settings.jsx";
-import { ComingSoon, ExternalSupplierPortal } from "../modules/SupplierPortal.jsx";
-import { CustomerSupport } from "../modules/Support.jsx";
-import { VicobaSaccosModule } from "../modules/Vicoba.jsx";
-import { WorkflowStudio } from "../modules/Workflows.jsx";
+} from "./lib/mappers.jsx";
+import { mapFileRow, notify } from "./lib/notify.jsx";
+import { DEMO_OVERRIDE, IS_CONFIGURED, authGetUser, authSignOut, sb, setDemoOverride } from "./lib/supabase.jsx";
+import { AIAssistant } from "./modules/AIAssistant.jsx";
+import { Analytics, MicrofinanceModule } from "./modules/Analytics.jsx";
+import { LoginPage, OAuthCompanySetup, SignupPage } from "./modules/Auth.jsx";
+import { BankingMFIModule } from "./modules/Banking.jsx";
+import { CRM } from "./modules/CRM.jsx";
+import { CollaborationHub } from "./modules/Collaboration.jsx";
+import { CommunityGroupsModule } from "./modules/Community.jsx";
+import { CustomerPortal } from "./modules/CustomerPortal.jsx";
+import { Dashboard } from "./modules/Dashboard.jsx";
+import { Documents } from "./modules/Documents.jsx";
+import { ECommerce } from "./modules/ECommerce.jsx";
+import { EmployeePortal } from "./modules/EmployeePortal.jsx";
+import { Finance } from "./modules/Finance.jsx";
+import { FleetManagementModule } from "./modules/Fleet.jsx";
+import { HR } from "./modules/HR.jsx";
+import { HealthcareClinicModule } from "./modules/Healthcare.jsx";
+import { HotelManagementModule } from "./modules/Hotel.jsx";
+import { Integrations } from "./modules/Integrations.jsx";
+import { Inventory } from "./modules/Inventory.jsx";
+import { Manufacturing } from "./modules/Manufacturing.jsx";
+import { Marketing } from "./modules/Marketing.jsx";
+import { Notifications } from "./modules/Notifications.jsx";
+import { POS } from "./modules/POS.jsx";
+import { PharmacyManagementModule } from "./modules/Pharmacy.jsx";
+import { Procurement } from "./modules/Procurement.jsx";
+import { Projects } from "./modules/Projects.jsx";
+import { Reports, scheduledReportsSeed } from "./modules/Reports.jsx";
+import { RestaurantModule } from "./modules/Restaurant.jsx";
+import { SupplyChain } from "./modules/SCM.jsx";
+import { Sales } from "./modules/Sales.jsx";
+import { SchoolManagementModule } from "./modules/School.jsx";
+import { SettingsPage } from "./modules/Settings.jsx";
+import { ComingSoon, ExternalSupplierPortal } from "./modules/SupplierPortal.jsx";
+import { CustomerSupport } from "./modules/Support.jsx";
+import { VicobaSaccosModule } from "./modules/Vicoba.jsx";
+import { WorkflowStudio } from "./modules/Workflows.jsx";
 
 export function SmartManager() {
   const [authView, setAuthView] = useState("login");
@@ -525,7 +525,6 @@ export function SmartManager() {
                 {criticalAlerts.length} Alert{criticalAlerts.length>1?"s":""}
               </button>
             )}
-            {/* Dark mode toggle fixed: uses toggleDarkMode */}
             <button onClick={toggleDarkMode} className="w-8 h-8 flex items-center justify-center rounded-xl border border-slate-200 text-slate-500 hover:border-slate-300 hover:text-[#111827] transition-all" title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}>
               {darkMode ? <Sun size={15}/> : <Moon size={15}/>}
             </button>
